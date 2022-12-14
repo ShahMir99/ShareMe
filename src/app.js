@@ -35,5 +35,5 @@ app.get("*" , (req , res) => {
 
 
 app.listen(Port , () => {
-    console.log(`App is Running On PORT ${Port} Sucessfully`)
+    console.log(`App is Running On PORT ${Port} Sucessfullyy`)
 })
