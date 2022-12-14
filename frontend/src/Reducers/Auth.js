@@ -58,14 +58,14 @@ export const authReducer = (state = { authData: null  , authLoading : false , er
 };
 
 
-export const userProfile = (state = {Profile : {} , Loading : false , error : false} , action) => {
+export const userProfile = (state = {Profile : {} ,ProfilePosts : [] , Loading : false , error : false} , action) => {
 
   switch(action.type) {
     case GET_PROFILE_START : 
     return {...state , Loading : true , error : false}
 
     case GET_PROFILE_SUCCESSFULL : 
-    return {...state , Profile : action.payload , Loading : false , error : false}
+    return {...state , Profile : action.payload.profile , ProfilePosts : action.payload.profilePost , Loading : false , error : false}
 
     case "FOLLOW_USER" : 
     return {...state , Profile : action.payload}

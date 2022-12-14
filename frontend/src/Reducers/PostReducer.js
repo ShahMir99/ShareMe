@@ -17,7 +17,7 @@ import {
 
 } from "../constants/postConstants";
 
-export const PostReducer = (state = { Post: [], Loading: false }, action) => {
+export const PostReducer = (state = { Post: [] ,Loading: false }, action) => {
   switch (action.type) {
     case POST_REQUEST_START:
       return { Post: [], Loading: true };
@@ -34,7 +34,7 @@ export const PostReducer = (state = { Post: [], Loading: false }, action) => {
     case CREATE_REQUEST_SUCCESSFULL:
       return {
         ...state,
-        Post: [action.payload.result , ...state.Post],
+        Post: [action.payload.result],
         Loading: false,
       };
 

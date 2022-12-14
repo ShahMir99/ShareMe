@@ -16,7 +16,7 @@ const CreateNew = () => {
   const Dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth.authData);
-  const { Loading , error } = useSelector((state) => state.Posts);
+  const {Message , Loading , error } = useSelector((state) => state.Posts);
 
   const [PostData, SetPostData] = useState({
     postContent: "",
@@ -52,9 +52,9 @@ const CreateNew = () => {
   const submitPost = () => {
     Dispatch(CreatePost({ ...PostData, user: user?._id }));
     crearForm();
-    navigate("/")
-
   };
+  
+
 
   return (
     <>

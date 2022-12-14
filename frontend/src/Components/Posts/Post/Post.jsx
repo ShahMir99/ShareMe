@@ -9,12 +9,19 @@ import defaultDp from "../../../image/defaultDp.png";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
-import { LikePost, DeletePost } from "../../../Actions/PostsAction";
+import {
+  LikePost,
+  DeletePost,
+  SinglePostAction,
+} from "../../../Actions/PostsAction";
+import CommentModel from "../../../Pages/Comments/CommentModel";
 
 const Post = ({ data }) => {
   const disptach = useDispatch();
 
   const { user } = useSelector((state) => state.auth.authData);
+  const [modalOpened, setModalOpened] = useState(false);
+  const [currentPost, setcurrentPost] = useState({});
   const [Liked, SetIsLiked] = useState(data.likeCounts.includes(user._id));
   const [likepost, Setlikepost] = useState(data.likeCounts.length);
   const [toggle, setToggle] = useState(false);
@@ -38,6 +45,12 @@ const Post = ({ data }) => {
 
   const toggleBtn = () => {
     setToggle((preval) => !preval);
+  };
+
+  const toggleModel = (currentPost) => {
+    disptach(SinglePostAction(currentPost._id));
+    setcurrentPost(currentPost);
+    setModalOpened(true);
   };
 
   return (
@@ -92,9 +105,12 @@ const Post = ({ data }) => {
             </div>
 
             <div className="comment">
-              <NavLink to={`/post/${data._id}/comments`}>
-                <GoComment />
-              </NavLink>
+              <GoComment onClick={() => toggleModel(data)} />
+              <CommentModel
+                modalOpened={modalOpened}
+                setModalOpened={setModalOpened}
+                currentPost={currentPost}
+              />
             </div>
           </div>
 
@@ -103,17 +119,15 @@ const Post = ({ data }) => {
               {likepost} {likepost <= 1 ? "Like" : "Likes"}
             </h6>
           </div>
-          
-            {data.postContent && (
-          <p>
-              <p style={{ fontSize: "15px", paddingTop: "0" }}>
-                <span style={{ fontWeight: "600", fontSize: "16px" }}>
+
+          {data.postContent && (
+              <p style={{ fontSize: "13px", paddingTop: "0" }}>
+                <span style={{ fontWeight: "600", fontSize: "15px" }}>
                   {data.user?.name}{" "}
                 </span>{" "}
                 {data.postContent}
               </p>
-          </p>
-            )}
+          )}
         </div>
 
         <div className="like_comments_count">

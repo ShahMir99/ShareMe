@@ -1,4 +1,4 @@
-import React , {useEffect} from "react";
+import React, { useEffect } from "react";
 import Navbar from "../../Components/Navbar/Navbar";
 import "./Profile.css";
 import bg from "../../image/bg.png";
@@ -7,44 +7,32 @@ import PreLoader from "../../Components/PreLoader/PreLoader";
 import NaN from "../../image/NaN.png";
 import { CiSettings } from "react-icons/ci";
 import { FaPinterestP } from "react-icons/fa";
-import { SlSocialInstagram , SlSocialFacebook} from "react-icons/sl";
+import { SlSocialInstagram, SlSocialFacebook } from "react-icons/sl";
 import Posts from "../../Components/Posts/Posts";
 import { MdVerified } from "react-icons/md";
-import { NavLink , useParams  , useNavigate} from "react-router-dom";
+import { NavLink, useParams} from "react-router-dom";
 import { getProfile } from "../../Actions/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { followUser, unfollowUser } from "../../Actions/userAction";
-import { PostAction } from "../../Actions/PostsAction";
-
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const Params = useParams();
 
-  const { user} = useSelector((state) => state.auth.authData);
-  const {authLoading } = useSelector((state) => state.auth);
-  const { Profile, Loading } = useSelector((state) => state.UserProfile);
-  const { Post } = useSelector((state) => state.Posts);
-
+  const { user } = useSelector((state) => state.auth.authData);
+  const { authLoading } = useSelector((state) => state.auth);
+  const { Profile, ProfilePosts, Loading } = useSelector((state) => state.UserProfile);
 
   useEffect(() => {
     dispatch(getProfile(Params.id));
-  }, [dispatch, Params.id , user ]);
+  }, [dispatch, Params.id, user]);
 
-  
-  const SpecificPosts = Post?.filter((data) => data.user?._id === Params.id)
-  
-  const followFun = (id , data) => {
-    if(Profile.followers.includes(user._id)){
-      dispatch(unfollowUser(id , data))
-      window.location.reload()
-      
 
-    }
-    else{
-      dispatch(followUser(id , data));
-      window.location.reload()
+  const followFun = (id, data) => {
+    if (Profile.followers.includes(user._id)) {
+      dispatch(unfollowUser(id, data));
+    } else {
+      dispatch(followUser(id, data));
     }
   };
 
@@ -56,7 +44,11 @@ const Profile = () => {
         <div className="Profile">
           <Navbar />
           <div className="profile_header">
-            <img src={Profile.cover?.url ? Profile.cover.url : bg} alt="backGround" width="100%" />
+            <img
+              src={Profile.cover?.url ? Profile.cover.url : bg}
+              alt="backGround"
+              width="100%"
+            />
 
             {Profile._id === user._id ? (
               <div className="btn_setting">
@@ -66,12 +58,18 @@ const Profile = () => {
               </div>
             ) : (
               <div className="btn_setting">
-                <button onClick={() => followFun(Profile._id , user._id)}>{Profile.followers && Profile.followers?.includes(user._id) ? "Unfollow" : "Follow"}</button>
+                <button onClick={() => followFun(Profile._id, user._id)}>
+                  {Profile.followers && Profile.followers?.includes(user._id)
+                    ? "Unfollow"
+                    : "Follow"}
+                </button>
               </div>
             )}
             <div className="profile__pic">
               <img
-                src={Profile.profile ? Profile.profile.url : defaultDp} alt="profile"/>
+                src={Profile.profile ? Profile.profile.url : defaultDp}
+                alt="profile"
+              />
               <div className="name">
                 <div className="heading__verifying">
                   <h3>{Profile.name}</h3>
@@ -99,13 +97,17 @@ const Profile = () => {
               </div>
 
               <div className="post_count_box">
-                <div>{Post && Post.filter((post) => post.user?._id === Params.id).length} Posts</div>
+                <div>
+                  {ProfilePosts &&
+                    ProfilePosts.length}{" "}
+                  Posts
+                </div>
                 <div>0 Collections</div>
               </div>
             </div>
           </div>
-          {SpecificPosts.length > 0 ? (
-            <Posts posts={SpecificPosts} profile={true}/>
+          {ProfilePosts.length > 0 ? (
+            <Posts posts={ProfilePosts} profile={true} />
           ) : (
             <div className="post_not_present">
               <img src={NaN} alt="No Post Available" />

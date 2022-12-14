@@ -1,17 +1,16 @@
-import React , {useEffect} from "react"
+import React from "react"
 import "./App.css";
 import Auth from "./Pages/Auth/Auth";
 import Home from "./Pages/Home/Home";
 import AboutDeveloper from "./Pages/AboutDeveloper/AboutDeveloper";
-import Comments from "./Pages/Comments/Comments";
 import Profile from "./Pages/Profile/Profile";
 import { Routes, Route, Navigate } from "react-router-dom";
 import CreateNew from "./Pages/CreateNew/CreateNew";
 import FindFriend from "./Pages/FindFriend/FindFriend";
-import { useSelector , useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import UpdateProfile from "./Components/UpdateProfile/UpdateProfile";
-import { PostAction } from "./Actions/PostsAction";
-import CommentPreLoader from "./Components/CommentPreLoader/CommentPreLoader";
+import PreLoader from "./Components/PreLoader/PreLoader";
+
 
 function App() {
   const user = useSelector((state) => state.auth.authData);
@@ -27,7 +26,7 @@ function App() {
           <Route path="/profile/:id/updateprofile" element={<UpdateProfile/>}/>
           <Route path="/new/post" element={user ? <CreateNew /> : <Navigate to="/auth" />}/>
           <Route path="/find/friend" element={user ? <FindFriend /> : <Navigate to="/auth" />}/>
-          <Route path="/post/:id/comments" element={user ? <Comments /> : <Navigate to="/auth" />}/>
+          <Route path="/load" element={<PreLoader />}/>
           <Route path="*" element={<Navigate to="/"/>}/>
         </Routes>
       </div>

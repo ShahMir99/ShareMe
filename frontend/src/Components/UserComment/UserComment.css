@@ -32,15 +32,12 @@
 }
 
 .comment_userInfo > h4 {
+    font-size: 15px;
     display: flex;
     align-items: center;
+    
 }
 .comment_userInfo > span {
-    font-size: 13px;
+    font-size: 10px;
     color: rgba(0, 0, 0, 0.705);
-}
-
-.timespan span{
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.664);
 }

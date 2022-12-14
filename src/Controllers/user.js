@@ -1,4 +1,5 @@
 import User from "../Models/userModel.js";
+import POST from "../Models/postModel.js";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import SearchUser from "../Utils/SearchApi.js";
@@ -60,8 +61,10 @@ export const userProfile = async (req, res) => {
 
   try {
     const profile = await User.findById({ _id });
+    const profilePost = await POST.find({user : _id}).populate('user')
+    profilePost.sort((a , b) => b.createdAt - a.createdAt)
     if (!profile) return res.status(404).send("No Post With That Id");
-    res.status(201).json(profile);
+    res.status(201).json({profile , profilePost});
   } catch (err) {
     res.status(500).json(err);
   }
@@ -74,8 +77,6 @@ export const updateUserProfile = async (req, res) => {
     if (!req.body.cover && req.body.profile) {
       const myCloud = await cloudinary.v2.uploader.upload(req.body.profile, {
         folder: "SocialMedia",
-        width: 300,
-        crop: "scale",
       });
       const Profile = {
         url: myCloud.url,
@@ -90,8 +91,6 @@ export const updateUserProfile = async (req, res) => {
     if (req.body.cover && !req.body.profile) {
       const myCloud = await cloudinary.v2.uploader.upload(req.body.cover, {
         folder: "SocialMedia",
-        width: 300,
-        crop: "scale",
       });
 
       const Cover = {
@@ -106,8 +105,6 @@ export const updateUserProfile = async (req, res) => {
     if (req.body.cover && req.body.profile) {
       const myprofile = await cloudinary.v2.uploader.upload(req.body.profile, {
         folder: "SocialMedia",
-        width: 300,
-        crop: "scale",
       });
       const Profile = {
         url: myprofile.url,
@@ -117,8 +114,6 @@ export const updateUserProfile = async (req, res) => {
 
       const mycover = await cloudinary.v2.uploader.upload(req.body.cover, {
         folder: "SocialMedia",
-        width: 300,
-        crop: "scale",
       });
 
       const Cover = {
