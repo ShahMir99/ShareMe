@@ -131,11 +131,12 @@ const Post = ({ data }) => {
         </div>
 
         <div className="like_comments_count">
-          <NavLink to={`/post/${data._id}/comments`}>
-            <p>{`View all ${
-              data.Comments && data.Comments.length
-            } comments`}</p>
-          </NavLink>
+            <p onClick={() => toggleModel(data)}>{`View all ${data.Comments && data.Comments.length} comments`}</p>
+            <CommentModel
+                modalOpened={modalOpened}
+                setModalOpened={setModalOpened}
+                currentPost={currentPost}
+              />
         </div>
       </div>
     </>

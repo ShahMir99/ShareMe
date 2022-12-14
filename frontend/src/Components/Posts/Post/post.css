@@ -137,7 +137,7 @@
   text-decoration: none;
 }
 
-.like_comments_count > a > p {
+.like_comments_count > p {
   font-weight: 500;
   font-size: 13px;
   color: rgba(0, 0, 0, 0.589)
