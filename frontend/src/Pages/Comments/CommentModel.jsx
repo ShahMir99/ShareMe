@@ -33,14 +33,14 @@ const CommentModel = ({ modalOpened, setModalOpened, currentPost }) => {
           </div>
 
           {Loading ? (
-            <CommentPreLoader />
+            <CommentPreLoader Post={Post}/>
           ) : (
             <>
               {Post.Comments &&
                 Post.Comments.map((comments) => {
                   return (
                     <div className="comment_body">
-                      <UserComment comments={comments} />
+                      <UserComment comments={comments} PostID={Post._id}/>
                     </div>
                   );
                 })}

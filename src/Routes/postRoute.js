@@ -1,6 +1,6 @@
 import express from "express"
 const route = express.Router()
-import {singlepost , createPost , updatePost , deletePost , LikePost , comment ,getAllPost} from "../Controllers/Post.js";
+import {singlepost , createPost , updatePost , deletePost , LikePost , comment ,getAllPost , deleteComment} from "../Controllers/Post.js";
 
 // Get single And Multiple Post Routes 
 route.get("/:id" , getAllPost )
@@ -16,5 +16,6 @@ route.delete("/:id" , deletePost)
 
 route.put("/:id/likepost" , LikePost)
 route.put("/:id/comment" , comment)
+route.put("/:id/comment/delete" , deleteComment)
 
 export default route;

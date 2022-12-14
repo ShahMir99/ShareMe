@@ -152,3 +152,13 @@ export const comment = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+
+export const deleteComment = async (req , res) => {
+  const postId = req.params.id
+  try{
+    const findPost = await POST.findByIdAndUpdate({_id :postId }, {$pull : {Comments: {_id : req.body.commentId}}} , {new  :true})
+    res.status(200).json("Comment Deleted Successfully")
+  }catch(err){
+    res.status(500).send(err.message);
+  }
+}

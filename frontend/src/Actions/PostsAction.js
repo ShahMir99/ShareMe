@@ -132,3 +132,14 @@ export const submitComment = (postID ,commentval , user) => async (dispatch) => 
     console.log(error)
   }
 };
+
+export const DeleteComment = (postID ,commentID) => async (dispatch) => {
+
+  try {
+    await PostApi.deleteComment(postID , commentID );
+    dispatch({ type: "DELETE_REQUEST_SUCCESSFULL", payload: commentID });
+  } catch (error) {
+    console.log(error)
+  }
+};
+

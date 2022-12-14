@@ -78,6 +78,9 @@ export const singlePost = (
     case COMMENT_REQUEST_SUCCESSFULL:
       return {...state , Post :{...state.Post , Comments : [...state.Post.Comments , action.payload]}, Loading : false}
 
+    case "DELETE_REQUEST_SUCCESSFULL":
+      return {...state , Post :{...state.Post , Comments : [...state.Post.Comments.filter((comments) => comments._id !== action.payload)]}, Loading : false}
+
     case SINGLE_POST_FAIL:
       return {...state , Loading : false, error : action.payload}
 

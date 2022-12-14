@@ -15,3 +15,5 @@ export const deletePost = (currentId) => axios.delete(`/post/${currentId}`)
 export const likePost = (userId , PostId) => axios.put(`/post/${PostId}/likepost`, {userID : userId})
 
 export const commentApi = (postID ,comment , user) => axios.put(`/post/${postID}/comment`,{comment , user })
+
+export const deleteComment = (postID ,commentId) => axios.put(`/post/${postID}/comment/delete`, { commentId : commentId})

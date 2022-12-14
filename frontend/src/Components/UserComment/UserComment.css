@@ -21,7 +21,7 @@
 .comment_content_div{
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 85%;
     gap: 5px;
 }
 
@@ -31,13 +31,24 @@
     justify-content: space-between;
 }
 
-.comment_userInfo > h4 {
+.comment_userInfo > div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.comment_userInfo > svg{
+    color: rgb(22, 124, 192);
+    font-size: 19px;
+}
+
+.comment_userInfo > div> h4 {
     font-size: 15px;
     display: flex;
     align-items: center;
     
 }
-.comment_userInfo > span {
+.comment_userInfo > div > span {
     font-size: 10px;
     color: rgba(0, 0, 0, 0.705);
 }
