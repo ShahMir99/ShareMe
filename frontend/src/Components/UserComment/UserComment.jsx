@@ -10,7 +10,7 @@ const UserComment = ({ comments }) => {
     <div className="UserComment">
       <div className="image">
         <img
-          src={comments.user?.profile.url ? comments.user.profile.url : defaultDp}
+          src={comments.user.profile ? comments.user.profile.url : defaultDp}
           alt="user "
         />
       </div>
